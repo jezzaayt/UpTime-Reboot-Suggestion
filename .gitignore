@@ -1,0 +1,40 @@
+# Byte-compiled files
+__pycache__/
+*.py[cod]
+
+# Virtual environments
+env/
+venv/
+.venv/
+.env/
+
+# Distribution / packaging
+.Python
+build/
+dist/
+*.egg-info/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# Pytest
+.cache
+
+# IDE specific files
+.vscode/
+.idea/
+
+# Python Egg
+*.egg
+*.egg-info
+*.whl
+
+# Miscellaneous
+*.log
+*.sqlite3
+*.db
+*.pot
+*.pyc
+
+# Ignore any secret keys or configurations
+config.py
