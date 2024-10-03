@@ -1,7 +1,8 @@
 import time
 from uptime import get_uptime, format_uptime
 from notify import notify_uptime
-
+from system_tray import setup_tray_icon  
+import threading
 days = 14
 
 def check_uptime_threshold(threshold_days=days):
@@ -26,5 +27,10 @@ def check_uptime_threshold(threshold_days=days):
             # Sleep for a shorter interval if under the threshold
             time.sleep(60 * 60 * 10)  # Check every minute
 
-# Start monitoring the uptime
-check_uptime_threshold()
+if __name__ == "__main__":
+    # Start the system tray icon in a separate thread
+    tray_thread = threading.Thread(target=setup_tray_icon, daemon=True)
+    tray_thread.start()
+
+    # Start monitoring the uptime
+    check_uptime_threshold()
