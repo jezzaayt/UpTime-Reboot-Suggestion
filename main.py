@@ -5,11 +5,7 @@ from system_tray import setup_tray_icon
 import threading
 import platform
 
-
-
 days = 14
-
-
   
 def check_uptime_threshold(threshold_days=days):
     while True:

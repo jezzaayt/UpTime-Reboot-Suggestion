@@ -31,8 +31,6 @@ def setup_tray_icon():
         MenuItem("Quit", on_quit)
     ))
     threading.Thread(target=update_tooltip, args=(icon,), daemon=True).start()
-
-
     icon.run()
 
 def show_uptime(icon, item):
@@ -50,17 +48,7 @@ def format_uptime(seconds):
     minutes = (seconds % 3600) // 60
     return f"{int(days)}d {int(hours)}h {int(minutes)}m"
 
-# Create an icon for the system tray
-# def create_image(width, height, color1, color2):
-#     image = Image.new('RGB', (width, height), color1)
-#     dc = ImageDraw.Draw(image)
-#     dc.rectangle(
-#         (width // 2, 0, width, height // 2),
-#         fill=color2)
-#     dc.rectangle(
-#         (0, height // 2, width // 2, height),
-#         fill=color2)
-#     return image
+
 
 # Function to update the tooltip with uptime and refresh time
 def update_tooltip(icon):
@@ -75,16 +63,3 @@ def update_tooltip(icon):
 def on_quit(icon, item):
     icon.stop()
 
-# # Main function to set up the system tray icon
-# def setup_tray_icon():
-#     # Create the system tray icon with a custom image
-#     icon_image = create_image(64, 64, 'black', 'Orange')
-#     icon = pystray.Icon("uptime_tracker", icon_image, menu=pystray.Menu(
-#         item('End', on_quit)
-#     ))
-
-#     # Start the background thread for updating the tooltip
-#     threading.Thread(target=update_tooltip, args=(icon,), daemon=True).start()
-
-#     # Run the system tray icon
-#     icon.run()
