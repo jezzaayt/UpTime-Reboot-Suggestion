@@ -28,7 +28,7 @@ def check_uptime_threshold(threshold_days=days):
             time.sleep(60 * 60)  # Check every 10 minutes
         else:
             # Sleep for a shorter interval if under the threshold
-            time.sleep(60 * 60 * 10)  # Check every minute
+            time.sleep(60)  # Check every minute
 
 if __name__ == "__main__":
     # Start the system tray icon in a separate thread
