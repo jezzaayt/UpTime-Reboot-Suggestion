@@ -4,6 +4,9 @@ from notify import notify_uptime
 from system_tray import setup_tray_icon  
 import threading
 import platform
+
+
+
 days = 14
 
 
