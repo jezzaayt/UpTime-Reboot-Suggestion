@@ -3,8 +3,11 @@ from uptime import get_uptime, format_uptime
 from notify import notify_uptime
 from system_tray import setup_tray_icon  
 import threading
+import platform
 days = 14
 
+
+  
 def check_uptime_threshold(threshold_days=days):
     while True:
         # Get the uptime
@@ -29,8 +32,10 @@ def check_uptime_threshold(threshold_days=days):
 
 if __name__ == "__main__":
     # Start the system tray icon in a separate thread
-    tray_thread = threading.Thread(target=setup_tray_icon, daemon=True)
-    tray_thread.start()
+    if platform.system() == "Windows":
+        tray_thread = threading.Thread(target=setup_tray_icon, daemon=True)
+        tray_thread.start()
+        # As laziness on Linux currently... will need to get a VM instance at some point of time to test this and create tray for Linux if necessary
 
     # Start monitoring the uptime
     check_uptime_threshold()
