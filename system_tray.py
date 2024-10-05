@@ -57,7 +57,7 @@ def update_tooltip(icon):
         uptime = format_uptime(uptime_seconds)
         last_refreshed = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         icon.title = f"Uptime: {uptime}\nLast Refreshed: {last_refreshed}"
-        time.sleep(6 * 3600)  # Refresh every 6 hours
+        time.sleep(3600)  # Refresh every hour
 
 # Function to stop the tray icon
 def on_quit(icon, item):
