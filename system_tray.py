@@ -27,7 +27,7 @@ def setup_tray_icon():
 
     # Create the system tray icon
     icon = Icon("Uptime Monitor", icon_image, menu=Menu(
-        MenuItem("Show Last Uptime Check", show_uptime),
+        MenuItem("Check Uptime", show_uptime),
         MenuItem("Quit", on_quit)
     ))
     threading.Thread(target=update_tooltip, args=(icon,), daemon=True).start()
