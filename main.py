@@ -4,9 +4,14 @@ from notify import notify_uptime
 from system_tray import setup_tray_icon  
 import threading
 import platform
+import logging
 
 days = 14
-  
+
+
+logging.basicConfig(filename="uptime_monitor.log", level=logging.INFO)
+
+
 def check_uptime_threshold(threshold_days=days):
     while True:
         # Get the uptime
@@ -24,9 +29,11 @@ def check_uptime_threshold(threshold_days=days):
             notify_uptime(uptime_message)
 
             # Wait for a while before checking again to avoid multiple notifications
-            time.sleep(60 * 60)  # Check every 10 minutes
+            time.sleep(60 * 60)  # Check every hour
+            
         else:
             # Sleep for a shorter interval if under the threshold
+            print(uptime_seconds)
             time.sleep(60)  # Check every minute
 
 if __name__ == "__main__":
