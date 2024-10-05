@@ -9,7 +9,7 @@ import logging
 days = 14
 
 
-logging.basicConfig(filename="uptime_monitor.log", level=logging.INFO)
+logging.basicConfig(filename="uptime_monitor.log", level=logging.INFO, format='%(asctime)s - %(message)s')
 
 
 def check_uptime_threshold(threshold_days=days):
@@ -27,6 +27,9 @@ def check_uptime_threshold(threshold_days=days):
             )
             # Show the toast notification
             notify_uptime(uptime_message)
+            # Log the uptime message
+            logging.info(f"Uptime exceeds {days} days: {format_uptime(uptime_seconds)}")
+
 
             # Wait for a while before checking again to avoid multiple notifications
             time.sleep(60 * 60)  # Check every hour
@@ -34,7 +37,11 @@ def check_uptime_threshold(threshold_days=days):
         else:
             # Sleep for a shorter interval if under the threshold
             print(uptime_seconds)
-            time.sleep(60)  # Check every minute
+            time.sleep(3600)  # Check every minute
+            logging.info(f"Current Uptime: {format_uptime(uptime_seconds)}")   
+
+            
+
 
 if __name__ == "__main__":
     # Start the system tray icon in a separate thread
