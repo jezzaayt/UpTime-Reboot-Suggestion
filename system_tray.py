@@ -33,12 +33,16 @@ def setup_tray_icon():
     threading.Thread(target=update_tooltip, args=(icon,), daemon=True).start()
     icon.run()
 
-def show_uptime(icon, item):
-    print(f"Last checked uptime at: {time.ctime()}")
-
+def show_uptime(icon, item = None):
+    uptime_seconds = get_uptime()
+    formatted_uptime = format_uptime(uptime_seconds)
+    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")  # Get current time for the tooltip
+    # Update the icon's tooltip
+    icon.title = f"Uptime: {formatted_uptime}\nLast Checked at: {current_time}"
 
 # Function to calculate system uptime
 def get_uptime():
+
     return time.time() - psutil.boot_time()
 
 # Function to format uptime into human-readable form
@@ -53,10 +57,7 @@ def format_uptime(seconds):
 # Function to update the tooltip with uptime and refresh time
 def update_tooltip(icon):
     while True:
-        uptime_seconds = get_uptime()
-        uptime = format_uptime(uptime_seconds)
-        last_refreshed = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        icon.title = f"Uptime: {uptime}\nLast Refreshed: {last_refreshed}"
+        show_uptime(icon)
         time.sleep(3600)  # Refresh every hour
 
 # Function to stop the tray icon
