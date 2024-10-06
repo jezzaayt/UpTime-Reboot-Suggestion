@@ -1,19 +1,54 @@
-import time
+from plyer import notification
 from uptime import get_uptime, format_uptime
 from notify import notify_uptime
 from system_tray import setup_tray_icon  
 import threading
 import platform
 import logging
+import time
+import os
 
-days = 14
-
-
+# Setup basic logging
 logging.basicConfig(filename="uptime_monitor.log", level=logging.INFO, format='%(asctime)s - %(message)s')
 
 
-def check_uptime_threshold(threshold_days=days):
+# Days
+def get_threshold_days():
+    print("e")
+    file_path = "./day.txt"
+    if os.path.exists(file_path):
+        print("e")
+        try:
+            with open(file_path, "r") as file:
+                days = int(file.read().strip())  # Read and strip any extra whitespace
+                notification.notify(
+                title="Uptime Monitor",
+                message=f"Using threshold: {days} days",
+                timeout=5
+                )
+                return days
+        except Exception as e:
+            print("error reading")
+            notification.notify(
+                title="Uptime Monitor",
+                message=f"Error reading day.txt. Defaulting to 14 days. Error: {str(e)}",
+                timeout=5
+            )
+            return 14
+    else:
+        notification.notify(
+            title="Uptime Monitor",
+            message="Day.txt not found. Defaulting to 14 days.",
+            timeout=5
+        )
+        return 14
+
+
+
+
+def check_uptime_threshold():
     while True:
+        threshold_days = get_threshold_days()
         # Get the uptime
         uptime_seconds = get_uptime()
 
@@ -29,14 +64,11 @@ def check_uptime_threshold(threshold_days=days):
             notify_uptime(uptime_message)
             # Log the uptime message
             logging.info(f"Uptime exceeds {days} days: {format_uptime(uptime_seconds)}")
-
-
             # Wait for a while before checking again to avoid multiple notifications
-            time.sleep(60 * 60)  # Check every hour
+            time.sleep(60 * 60 * 6)
             
         else:
             # Sleep for a shorter interval if under the threshold
-            print(uptime_seconds)
             time.sleep(3600)  # Check every minute
             logging.info(f"Current Uptime: {format_uptime(uptime_seconds)}")   
 
