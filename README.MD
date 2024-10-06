@@ -5,3 +5,6 @@ Thought of some ideas and used AI to help implement this quickly for my own purp
 All working on Windows 11, do kind of have an idea to implement it on an linux system when I get a VM again. 
 
 Icon created by ChatGPT
+
+
+If want to change from default of 14 days to a different amount of days, then add in a file of day.txt to the folder tree with a single numeric value and it will then be used. 
