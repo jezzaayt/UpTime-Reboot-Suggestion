@@ -12,6 +12,7 @@ import os
 logging.basicConfig(filename="uptime_monitor.log", level=logging.INFO, format='%(asctime)s - %(message)s')
 
 
+
 # Days
 def get_threshold_days():
     print("e")
@@ -46,9 +47,8 @@ def get_threshold_days():
 
 
 
-def check_uptime_threshold():
+def check_uptime_threshold(threshold_days):
     while True:
-        threshold_days = get_threshold_days()
         # Get the uptime
         uptime_seconds = get_uptime()
 
@@ -76,6 +76,8 @@ def check_uptime_threshold():
 
 
 if __name__ == "__main__":
+    threshold_days = get_threshold_days()
+
     # Start the system tray icon in a separate thread
     if platform.system() == "Windows":
         tray_thread = threading.Thread(target=setup_tray_icon, daemon=True)
@@ -83,4 +85,4 @@ if __name__ == "__main__":
         # As laziness on Linux currently... will need to get a VM instance at some point of time to test this and create tray for Linux if necessary
 
     # Start monitoring the uptime
-    check_uptime_threshold()
+    check_uptime_threshold(threshold_days)
