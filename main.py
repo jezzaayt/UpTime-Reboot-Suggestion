@@ -12,29 +12,7 @@ import os
 logging.basicConfig(filename="uptime_monitor.log", level=logging.INFO, format='%(asctime)s - %(message)s')
 
 
-
-# Days
-def get_threshold_days():
-    print("e")
-    file_path = "./day.txt"
-    if os.path.exists(file_path):
-        print("e")
-        try:
-            with open(file_path, "r") as file:
-                days = int(file.read().strip())  # Read and strip any extra whitespace
-                
-                return days
-        except Exception as e:
-            
-            return 14
-    else:
-     
-        return 14
-
-
-
-
-def check_uptime_threshold(threshold_days):
+def check_uptime_threshold(threshold_days = 14):
     while True:
         # Get the uptime
         uptime_seconds = get_uptime()
@@ -63,7 +41,7 @@ def check_uptime_threshold(threshold_days):
 
 
 if __name__ == "__main__":
-    threshold_days = get_threshold_days()
+   
 
     # Start the system tray icon in a separate thread
     if platform.system() == "Windows":
@@ -72,4 +50,4 @@ if __name__ == "__main__":
         # As laziness on Linux currently... will need to get a VM instance at some point of time to test this and create tray for Linux if necessary
 
     # Start monitoring the uptime
-    check_uptime_threshold(threshold_days)
+    check_uptime_threshold()
