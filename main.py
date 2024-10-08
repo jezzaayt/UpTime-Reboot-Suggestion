@@ -22,19 +22,10 @@ def get_threshold_days():
         try:
             with open(file_path, "r") as file:
                 days = int(file.read().strip())  # Read and strip any extra whitespace
-                notification.notify(
-                title="Uptime Monitor",
-                message=f"Using threshold: {days} days",
-                timeout=5
-                )
+                
                 return days
         except Exception as e:
-            print("error reading")
-            notification.notify(
-                title="Uptime Monitor",
-                message=f"Error reading day.txt. Defaulting to 14 days. Error: {str(e)}",
-                timeout=5
-            )
+            
             return 14
     else:
         notification.notify(
