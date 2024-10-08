@@ -28,11 +28,7 @@ def get_threshold_days():
             
             return 14
     else:
-        notification.notify(
-            title="Uptime Monitor",
-            message="Day.txt not found. Defaulting to 14 days.",
-            timeout=5
-        )
+     
         return 14
 
 
